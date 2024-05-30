@@ -4,16 +4,22 @@ import type { DeliveryPerson } from "@/domain/user-manager/enterprise/entities/d
 export class InMemoryDeliveryPersonsRepository
   implements DeliveryPersonsRepository
 {
-  private deliveryPerson: DeliveryPerson[] = [];
+  public items: DeliveryPerson[] = [];
 
   async create(deliveryPerson: DeliveryPerson) {
-    this.deliveryPerson.push(deliveryPerson);
+    this.items.push(deliveryPerson);
+  }
+
+  async delete(id: string) {
+    const itemToDelete = this.items.findIndex(
+      (item) => item.id.toString() === id,
+    );
+
+    this.items.splice(itemToDelete, 1);
   }
 
   async getById(id: string) {
-    const deliveryPerson = this.deliveryPerson.find(
-      (item) => item.id.toString() === id,
-    );
+    const deliveryPerson = this.items.find((item) => item.id.toString() === id);
 
     if (!deliveryPerson) {
       return null;
