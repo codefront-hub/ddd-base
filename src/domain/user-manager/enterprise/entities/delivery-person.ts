@@ -8,7 +8,7 @@ interface DeliveryPersonProps {
 }
 
 export class DeliveryPerson extends Entity<DeliveryPersonProps> {
-  get getName(): string {
+  get name(): string {
     return this.props.name;
   }
 
@@ -21,8 +21,6 @@ export class DeliveryPerson extends Entity<DeliveryPersonProps> {
   }
 
   static create(props: DeliveryPersonProps, id?: UniqueEntityID) {
-    const admin = new DeliveryPerson(props, id);
-
-    return admin;
+    return new DeliveryPerson(props, id);
   }
 }

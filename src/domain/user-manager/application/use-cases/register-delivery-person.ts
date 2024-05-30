@@ -14,7 +14,7 @@ interface CreateDeliveryPersonUseCaseResponse {
 export class CreateDeliveryPersonUseCase {
   constructor(private deliveryPersonRepository: DeliveryPersonsRepository) {}
 
-  create({
+  execute({
     name,
     document,
     password,
