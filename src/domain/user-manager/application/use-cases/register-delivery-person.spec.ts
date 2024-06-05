@@ -1,3 +1,4 @@
+import { makeDeliveryPerson } from "test/factories/make-delivery-person";
 import { InMemoryDeliveryPersonsRepository } from "../../../../../test/repositories/in-memory-delivery-persons-repository";
 import { CreateDeliveryPersonUseCase } from "./register-delivery-person";
 
@@ -11,13 +12,10 @@ describe("Create Delivery Person Use Case", () => {
   });
 
   it("should be able to create a delivery person", () => {
-    const result = sut.execute({
-      name: "John",
-      document: "12345678",
-      password: "123456",
-    });
+    const fakeDeliveryPerson = makeDeliveryPerson({ name: "John" });
+    const result = sut.execute(fakeDeliveryPerson);
 
     expect(result.deliveryPerson.id).toBeDefined();
-    expect(result.deliveryPerson.name).toBe("John");
+    expect(result.deliveryPerson.name).toBe(fakeDeliveryPerson.name);
   });
 });

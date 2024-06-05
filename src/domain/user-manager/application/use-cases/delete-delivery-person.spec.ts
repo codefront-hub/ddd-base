@@ -1,3 +1,4 @@
+import { makeDeliveryPerson } from "test/factories/make-delivery-person";
 import { InMemoryDeliveryPersonsRepository } from "../../../../../test/repositories/in-memory-delivery-persons-repository";
 import { DeliveryPerson } from "../../enterprise/entities/delivery-person";
 import { DeleteDeliveryPersonUseCase } from "./delete-delivery-person";
@@ -12,15 +13,11 @@ describe("Delete Delivery Person Use Case", () => {
   });
 
   it("should be able to delete a delivery person", async () => {
-    const deliveryPerson = DeliveryPerson.create({
-      name: "John",
-      document: "12345678",
-      password: "123456",
-    });
+    const fakeDeliveryPerson = makeDeliveryPerson({});
 
-    const deliveryPersonId = deliveryPerson.id.toString();
+    const deliveryPersonId = fakeDeliveryPerson.id.toString();
 
-    await inMemoryDeliveryPersonsRepository.create(deliveryPerson);
+    await inMemoryDeliveryPersonsRepository.create(fakeDeliveryPerson);
 
     await sut.execute({ id: deliveryPersonId });
 

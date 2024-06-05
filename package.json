@@ -14,6 +14,7 @@
   "license": "ISC",
   "devDependencies": {
     "@biomejs/biome": "1.7.0",
+    "@faker-js/faker": "8.4.1",
     "@types/node": "20.12.7",
     "husky": "9.0.11",
     "typescript": "5.4.5",

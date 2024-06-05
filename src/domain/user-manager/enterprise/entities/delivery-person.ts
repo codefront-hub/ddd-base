@@ -1,7 +1,7 @@
 import { Entity } from "@/core/entities/entity";
 import type { UniqueEntityID } from "@/core/entities/unique-entity-id";
 
-interface DeliveryPersonProps {
+export interface DeliveryPersonProps {
   name: string;
   document: string;
   password: string;

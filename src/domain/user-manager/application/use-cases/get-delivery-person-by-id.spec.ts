@@ -1,3 +1,4 @@
+import { makeDeliveryPerson } from "test/factories/make-delivery-person";
 import { InMemoryDeliveryPersonsRepository } from "../../../../../test/repositories/in-memory-delivery-persons-repository";
 import { DeliveryPerson } from "../../enterprise/entities/delivery-person";
 import { GetDeliveryPersonByIdUseCase } from "./get-delivery-person-by-id";
@@ -12,25 +13,15 @@ describe("Get Delivery Person By ID Use Case", () => {
   });
 
   it("should be able to get a delivery person by id", async () => {
-    const deliveryPerson = DeliveryPerson.create({
-      name: "John",
-      document: "12345678",
-      password: "123456",
-    });
+    const fakeDeliveryPerson = makeDeliveryPerson({});
 
-    const deliveryPersonId = deliveryPerson.id.toString();
+    const deliveryPersonId = fakeDeliveryPerson.id.toString();
 
-    await inMemoryDeliveryPersonsRepository.create(deliveryPerson);
+    await inMemoryDeliveryPersonsRepository.create(fakeDeliveryPerson);
 
     const result = await sut.execute({ id: deliveryPersonId });
 
-    expect(result.deliveryPerson).toMatchObject(
-      expect.objectContaining({
-        name: "John",
-        document: "12345678",
-        password: "123456",
-      }),
-    );
+    expect(result.deliveryPerson).toMatchObject(fakeDeliveryPerson);
   });
 
   it("should not be able to get a delivery person with wrong id", async () => {
