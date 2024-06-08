@@ -1,5 +1,5 @@
 import { makeDeliveryPerson } from "test/factories/make-delivery-person";
-import { InMemoryDeliveryPersonsRepository } from "../../../../../test/repositories/in-memory-delivery-persons-repository";
+import { InMemoryDeliveryPersonsRepository } from "test/repositories/in-memory-delivery-persons-repository";
 import { CreateDeliveryPersonUseCase } from "./register-delivery-person";
 
 let inMemoryDeliveryPersonsRepository: InMemoryDeliveryPersonsRepository;
