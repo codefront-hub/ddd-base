@@ -1,3 +1,4 @@
+import type { PasswordHash } from "@/core/entities/password-hash";
 import { DeliveryPerson } from "@/domain/user-manager/enterprise/entities/delivery-person";
 import type { DeliveryPersonsRepository } from "../repositories/delivery-persons-repository";
 
@@ -12,17 +13,22 @@ interface CreateDeliveryPersonUseCaseResponse {
 }
 
 export class CreateDeliveryPersonUseCase {
-  constructor(private deliveryPersonRepository: DeliveryPersonsRepository) {}
+  constructor(
+    private passwordHash: PasswordHash,
+    private deliveryPersonRepository: DeliveryPersonsRepository,
+  ) {}
 
-  execute({
+  async execute({
     name,
     document,
     password,
-  }: CreateDeliveryPersonUseCaseRequest): CreateDeliveryPersonUseCaseResponse {
+  }: CreateDeliveryPersonUseCaseRequest): Promise<CreateDeliveryPersonUseCaseResponse> {
+    const hashedPassword = await this.passwordHash.hash(password);
+
     const deliveryPerson = DeliveryPerson.create({
       name,
       document,
-      password,
+      password: hashedPassword,
     });
 
     this.deliveryPersonRepository.create(deliveryPerson);
